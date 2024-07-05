@@ -329,7 +329,9 @@ class MailDocumentParser(DocumentParser):
                 response = (
                     route.index(email_html_file)
                     .resource(css_file)
-                    .user_agent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)")
+                    .user_agent(
+                        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)"
+                    )
                     .margins(Margin(top=0.1, bottom=0.1, left=0.1, right=0.1))
                     .size(PageSize(height=11.7, width=8.27))
                     .scale(1.0)
