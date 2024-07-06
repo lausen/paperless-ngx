@@ -353,7 +353,7 @@ jobs:
         with:
           images: |
             ghcr.io/${{ steps.set-ghcr-repository.outputs.ghcr-repository }}
-            name=lausen/paperless-ngx,enable=${{ steps.push-other-places.outputs.enable }}
+            name=githubcl/paperless-ngx,enable=${{ steps.push-other-places.outputs.enable }}
             name=quay.io/lausen/paperless-ngx,enable=${{ steps.push-other-places.outputs.enable }}
           tags: |
             # Tag branches with branch name
@@ -371,6 +371,11 @@ jobs:
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+        with:
+          version: "lab:latest"
+          driver: cloud
+          endpoint: "githubcl/paperless-ngx"
+
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -412,11 +417,11 @@ jobs:
           labels: ${{ steps.docker-meta.outputs.labels }}
           # Get cache layers from this branch, then dev
           # This allows new branches to get at least some cache benefits, generally from dev
-#          cache-from: |
-#            type=registry,ref=ghcr.io/${{ steps.set-ghcr-repository.outputs.ghcr-repository }}/builder/cache/app:${{ github.ref_name }}
-#            type=registry,ref=ghcr.io/${{ steps.set-ghcr-repository.outputs.ghcr-repository }}/builder/cache/app:dev
-#          cache-to: |
-#            type=registry,mode=max,ref=ghcr.io/${{ steps.set-ghcr-repository.outputs.ghcr-repository }}/builder/cache/app:${{ github.ref_name }}
+          cache-from: |
+            type=registry,ref=ghcr.io/${{ steps.set-ghcr-repository.outputs.ghcr-repository }}/builder/cache/app:${{ github.ref_name }}
+            type=registry,ref=ghcr.io/${{ steps.set-ghcr-repository.outputs.ghcr-repository }}/builder/cache/app:dev
+          cache-to: |
+            type=registry,mode=max,ref=ghcr.io/${{ steps.set-ghcr-repository.outputs.ghcr-repository }}/builder/cache/app:${{ github.ref_name }}
       -
         name: Inspect image
         run: |
