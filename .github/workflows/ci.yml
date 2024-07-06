@@ -354,7 +354,7 @@ jobs:
           images: |
             ghcr.io/${{ steps.set-ghcr-repository.outputs.ghcr-repository }}
             name=githubcl/paperless-ngx,enable=${{ steps.push-other-places.outputs.enable }}
-            name=quay.io/lausen/paperless-ngx,enable=${{ steps.push-other-places.outputs.enable }}
+            name=quay.io/weppmops/paperless-ngx,enable=${{ steps.push-other-places.outputs.enable }}
           tags: |
             # Tag branches with branch name
             type=ref,event=branch
